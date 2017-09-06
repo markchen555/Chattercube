@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import logo from '../logo.svg';
 import '../components/App.css';
 import axios from 'axios';
 import MessageList from '../components/MessageList';
@@ -12,8 +11,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages : []
+      messages : [],
+      search: ''
     }
+    this.send = this.send.bind(this);
+    this.getSearchInput = this.getSearchInput.bind(this);
   }
 
   componentDidMount() {
@@ -29,7 +31,6 @@ class App extends Component {
     // });
 
     this.fetch();
-    // this.send();
   }
 
   fetch() {
@@ -47,15 +48,37 @@ class App extends Component {
 
   send() { 
     axios.post('http://chattercube.thirdtape.com/messages', {
-      message: 'Got you Alex',
+      message: this.state.search,
       username: 'Mark'
     })
     .then((response) => {
       console.log('Sent');
+      this.setState({
+        search: ''
+      })
+      this.fetch();
     })
     .catch((data) => {
       console.log('ERROR: failed to send');
     })
+  }
+
+  getSearchInput(message) {
+    console.log(message)
+    this.setState({
+      search: message
+    })
+    console.log(this.state.search)
+  }
+
+  startSpinner() {
+    // $('.spinner img').show();
+    // $('form input[type=submit]').attr('disabled', "true");
+  }
+
+  stopSpinner() {
+    // $('.spinner img').fadeOut('fast');
+    // $('form input[type=submit]').attr('disabled', null);
   }
   
 
@@ -63,7 +86,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        <Main />
+        <Main handleSearchInput={this.send} getSearchInput={this.getSearchInput} />
         <div id="chats" className="container" >
           <MessageList messages={this.state.messages} />   
         </div>
