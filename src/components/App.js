@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
+// import logo from '../logo.svg';
 import '../components/App.css';
 import axios from 'axios';
 import MessageList from '../components/MessageList';
+import Navbar from '../components/Navbar';
+import Main from '../components/Main';
+
 
 
 class App extends Component {
@@ -28,20 +31,6 @@ class App extends Component {
     this.fetch();
     // this.send();
   }
-
-  // fetch() {
-  //   var context = this;
-  //   axios.get('http://chattercube.thirdtape.com/messages')
-  //   .then((data) => {
-  //     context.setState({
-  //       messages: data.data.messages
-  //     })
-  //   })
-  //   .catch((data) => {
-  //     console.log('ERROR')
-  //   })
-  // }
-
 
   fetch() {
     var context = this;
@@ -71,16 +60,12 @@ class App extends Component {
   
 
   render() {
-    console.log(this.state)
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>ChatterCube</h2>
-        </div>
-        <div className="App-intro Message-list">
-          {/* To get started, edit <code>src/App.js</code> and save to reload. */}
-          <MessageList messages={this.state.messages} />
+        <Navbar />
+        <Main />
+        <div id="chats" className="container" >
+          <MessageList messages={this.state.messages} />   
         </div>
       </div>
     );
