@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import '../components/App.css';
 import axios from 'axios';
-import MessageList from '../components/MessageList';
+// import MessageList from '../components/MessageList';
 import Navbar from '../components/Navbar';
 import Main from '../components/Main';
 import Loading from '../components/Loading'
+import Message from '../components/Message';
 
 
 class App extends Component {
@@ -80,7 +81,7 @@ class App extends Component {
         <div id="chats" className="container" >
           {!this.state.messages
           			? <Loading />
-          			: <MessageList messages={this.state.messages} /> }
+          			:  this.state.messages.map((message, i) =>  <Message message={message} key={message.username + i} /> )}            
         </div>
       </div>
     );
