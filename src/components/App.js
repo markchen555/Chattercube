@@ -4,14 +4,14 @@ import axios from 'axios';
 import MessageList from '../components/MessageList';
 import Navbar from '../components/Navbar';
 import Main from '../components/Main';
-
+import Loading from '../components/Loading'
 
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages : [],
+      messages : null,
       search: ''
     }
     this.send = this.send.bind(this);
@@ -64,23 +64,13 @@ class App extends Component {
   }
 
   getSearchInput(message) {
-    console.log(message)
+    // console.log(message.target.value)
     this.setState({
       search: message
     })
-    console.log(this.state.search)
-  }
-
-  startSpinner() {
-    // $('.spinner img').show();
-    // $('form input[type=submit]').attr('disabled', "true");
-  }
-
-  stopSpinner() {
-    // $('.spinner img').fadeOut('fast');
-    // $('form input[type=submit]').attr('disabled', null);
-  }
-  
+    // message.target.value = '';
+    // console.log(message.target.value)
+  }  
 
   render() {
     return (
@@ -88,7 +78,9 @@ class App extends Component {
         <Navbar />
         <Main handleSearchInput={this.send} getSearchInput={this.getSearchInput} />
         <div id="chats" className="container" >
-          <MessageList messages={this.state.messages} />   
+          {!this.state.messages
+          			? <Loading />
+          			: <MessageList messages={this.state.messages} /> }
         </div>
       </div>
     );

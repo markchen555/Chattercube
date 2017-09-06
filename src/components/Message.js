@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Addimg from '../components/images/add.png';
 import '../components/App.css';
 import '../index.css';
+import TimeAgo from 'react-timeago'
 
 var Message = ({message}) => {
 
@@ -25,7 +26,7 @@ var Message = ({message}) => {
 
         <div className="col-sm-3">
           <div className="timestamp">
-            {message.createdAt }
+          <TimeAgo date={message.createdAt} />
           </div>
         </div>
       </div>
